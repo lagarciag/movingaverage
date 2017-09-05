@@ -10,9 +10,8 @@ type MovingAverage struct {
 	count  int
 	period int
 
-	avgSum  float64
-	average float64
-	//avgHistBuff *historyBuffer
+	avgSum      float64
+	average     float64
 	avgHistBuff *ringbuffer.RingBuffer
 
 	avg2Sum     float64
@@ -20,7 +19,7 @@ type MovingAverage struct {
 	varHistBuff *ringbuffer.RingBuffer
 }
 
-func NewAverage(period int) *MovingAverage {
+func New(period int) *MovingAverage {
 
 	avg := &MovingAverage{}
 	avg.period = period
