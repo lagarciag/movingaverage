@@ -23,8 +23,8 @@ func New(period int) *MovingAverage {
 
 	avg := &MovingAverage{}
 	avg.period = period
-	avg.avgHistBuff = ringbuffer.NewBuffer(period)
-	avg.varHistBuff = ringbuffer.NewBuffer(period)
+	avg.avgHistBuff = ringbuffer.NewBuffer(period, false)
+	avg.varHistBuff = ringbuffer.NewBuffer(period, false)
 	return avg
 }
 
