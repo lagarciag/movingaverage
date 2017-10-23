@@ -54,7 +54,8 @@ func (avg *MovingAverage) avg(value float64) {
 
 	avg.avgHistBuff.Push(value)
 
-	value2 := value * value
+	value2 := float64(value * value)
+
 	last2AvgValue := avg.varHistBuff.Tail()
 	avg.avg2Sum = (avg.avg2Sum - last2AvgValue) + value2
 
@@ -63,7 +64,11 @@ func (avg *MovingAverage) avg(value float64) {
 		n = float64(avg.count)
 	}
 
-	avg.variance = ((n * avg.avg2Sum) - (avg.avgSum * avg.avgSum)) / (n * (n - 1))
+	avg.variance = math.Abs(((n * avg.avg2Sum) - (avg.avgSum * avg.avgSum)) / (n * (n - 1)))
+
+	if math.IsNaN(avg.variance) {
+		avg.variance = float64(0)
+	}
 
 	avg.varHistBuff.Push(value2)
 }
